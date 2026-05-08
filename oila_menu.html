@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Меню — Oila 2.0</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  body {
+    width: 210mm;
+    height: 297mm;
+    overflow: hidden;
+    background: #fff;
+    color: #111;
+    font-family: 'EB Garamond', Georgia, serif;
+  }
+
+  .page {
+    width: 210mm;
+    height: 297mm;
+    padding: 10mm 12mm 10mm 12mm;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .header {
+    text-align: center;
+    border-bottom: 2.5pt solid #111;
+    padding-bottom: 4mm;
+    margin-bottom: 5mm;
+  }
+
+  .header h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 28pt;
+    font-weight: 700;
+    letter-spacing: 6px;
+    line-height: 1;
+  }
+
+  .header .subtitle {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 8.5pt;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-top: 2mm;
+    font-style: italic;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0 7mm;
+    flex: 1;
+  }
+
+  .col {
+    border-right: 0.5pt solid #ccc;
+    padding-right: 7mm;
+  }
+  .col:last-child {
+    border-right: none;
+    padding-right: 0;
+  }
+
+  .section {
+    margin-bottom: 4.5mm;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 8.5pt;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    border-bottom: 0.75pt solid #111;
+    padding-bottom: 1.2mm;
+    margin-bottom: 1.8mm;
+  }
+
+  .section ul {
+    list-style: none;
+  }
+
+  .section ul li {
+    font-size: 7.8pt;
+    line-height: 1.55;
+    padding-left: 4mm;
+    position: relative;
+  }
+
+  .section ul li::before {
+    content: '·';
+    position: absolute;
+    left: 0;
+    color: #555;
+  }
+
+  .footer {
+    border-top: 1pt solid #111;
+    padding-top: 2.5mm;
+    text-align: center;
+    margin-top: 2mm;
+  }
+
+  .footer p {
+    font-size: 7pt;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-style: italic;
+    color: #444;
+  }
+
+  @media print {
+    body { -webkit-print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <h1>OILA</h1>
+    <div class="subtitle">Menu &mdash; 2.0</div>
+  </div>
+
+  <div class="grid">
+
+    <div class="col">
+      <div class="section">
+        <div class="section-title">Coffee</div>
+        <ul>
+          <li>Эспрессо</li>
+          <li>Доппио</li>
+          <li>Фильтр кофе &nbsp;<em>S / L</em></li>
+          <li>Капучино &nbsp;<em>S / L</em></li>
+          <li>Латте &nbsp;<em>S / L</em></li>
+          <li>Раф &nbsp;<em>S / L</em></li>
+          <li>Flat White</li>
+          <li>Mokko &nbsp;<em>S / L</em></li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Ice Coffee</div>
+        <ul>
+          <li>Ice Latte &nbsp;<em>S / L</em></li>
+          <li>Ice Mokko &nbsp;<em>S / L</em></li>
+          <li>Бамбл Сауэр</li>
+          <li>Вишневый Панч &nbsp;<em>S / L</em></li>
+          <li>Карамельный Фраппе &nbsp;<em>S / L</em></li>
+          <li>Аффогато с фисташковой халвой</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Matcha</div>
+        <ul>
+          <li>Matcha Latte &nbsp;<em>S / L</em></li>
+          <li>Ice Matcha Latte &nbsp;<em>S / L</em></li>
+          <li>Ice Orange Matcha</li>
+          <li>Голубая матча с лавандой</li>
+          <li>Розовая матча с питахайей и персиком</li>
+          <li>Matcha Coffee с фундуком</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Lemonade</div>
+        <ul>
+          <li>Алоэ–Виноград</li>
+          <li>Киви–Яблоко–Тархун</li>
+          <li>Цитрусовый</li>
+          <li>Яблоко–Смородина</li>
+          <li>Ice Tea Вишня–Сакура</li>
+          <li>Мохито</li>
+          <li>Вишневый компот</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="section">
+        <div class="section-title">Vitamin Tea</div>
+        <ul>
+          <li>Цитрусовый чай</li>
+          <li>Смородиновый чай</li>
+          <li>Малиновый чай</li>
+          <li>Имбирно–медовый чай</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Tea</div>
+        <ul>
+          <li>Черный / Зеленый</li>
+          <li>Зеленый с чабрецом</li>
+          <li>Черный с бергамотом</li>
+          <li>Жасминовые жемчужины</li>
+          <li>Раскрывающийся чай (связанный)</li>
+          <li>Роза–Голубика</li>
+          <li>Жасмин–Клубника</li>
+          <li>Персиковый улун</li>
+          <li>Молочный улун</li>
+          <li>Ромашка–Мята</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="section-title">China Tea</div>
+        <ul>
+          <li>Дворцовый Шу Пуэр</li>
+          <li>Да Хун Пао</li>
+          <li>Те Гуань Инь</li>
+          <li>Золотые Иглы</li>
+          <li>Женьшень Улун</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="section">
+        <div class="section-title">Soft Drinks</div>
+        <ul>
+          <li>Coca-Cola / Fanta / Sprite &nbsp;<em>0.25</em></li>
+          <li>Tassay &nbsp;<em>0.25</em></li>
+          <li>Rich &nbsp;<em>0.25</em></li>
+          <li>Чортог &nbsp;<em>0.25</em></li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Fresh</div>
+        <ul>
+          <li>Апельсин</li>
+          <li>Грейпфрут</li>
+          <li>Яблоко</li>
+          <li>Морковь</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Smoothie</div>
+        <ul>
+          <li>Яблоко–Сельдерей</li>
+          <li>Ягодный</li>
+          <li>Свёкла–Апельсин</li>
+          <li>Киви–Яблоко–Банан</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="section-title">For Kids</div>
+        <ul>
+          <li>Какао Kids</li>
+          <li>Персиково–клубничный смузи</li>
+          <li>Milk Shake Snickers</li>
+          <li>Milk Shake Raffaello</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <p>Спасибо, что выбрали Oila &nbsp;&mdash;&nbsp; Всегда рады вас видеть</p>
+  </div>
+
+</div>
+</body>
+</html>
