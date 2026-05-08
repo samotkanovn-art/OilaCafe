@@ -2,277 +2,385 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>Меню — Oila 2.0</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oila — ресторан в Ташкенте</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap');
+  :root {
+    --cream: #f5f0e8;
+    --dark: #1a1208;
+    --terracotta: #c4622d;
+    --gold: #b8933a;
+    --warm-mid: #7a5c3a;
+    --soft: #e8dece;
+  }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  @page {
-    size: A4;
-    margin: 0;
-  }
-
   body {
-    width: 210mm;
-    height: 297mm;
-    overflow: hidden;
-    background: #fff;
-    color: #111;
-    font-family: 'EB Garamond', Georgia, serif;
+    background-color: var(--dark);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Jost', sans-serif;
+    overflow-x: hidden;
   }
 
-  .page {
-    width: 210mm;
-    height: 297mm;
-    padding: 10mm 12mm 10mm 12mm;
+  /* Background texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 0%, #3a2010 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 80% 100%, #2a1a08 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  /* Grain overlay */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  .card {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 420px;
+    padding: 48px 28px 52px;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    gap: 0;
   }
 
-  .header {
+  /* Ornament top */
+  .ornament {
+    width: 120px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.1s forwards;
+  }
+
+  /* Logo area */
+  .logo-wrap {
     text-align: center;
-    border-bottom: 2.5pt solid #111;
-    padding-bottom: 4mm;
-    margin-bottom: 5mm;
+    margin-bottom: 10px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.2s forwards;
   }
 
-  .header h1 {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: 28pt;
-    font-weight: 700;
-    letter-spacing: 6px;
+  .logo-main {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 72px;
+    font-weight: 400;
+    color: var(--cream);
     line-height: 1;
+    letter-spacing: 0.08em;
   }
 
-  .header .subtitle {
-    font-family: 'EB Garamond', Georgia, serif;
-    font-size: 8.5pt;
-    letter-spacing: 4px;
+  .logo-sub {
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.35em;
+    color: var(--gold);
     text-transform: uppercase;
-    margin-top: 2mm;
-    font-style: italic;
+    margin-top: 6px;
   }
 
-  .grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 0 7mm;
+  /* Divider */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 24px 0 32px;
+    width: 100%;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.3s forwards;
+  }
+  .divider::before, .divider::after {
+    content: '';
     flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(184,147,58,0.4));
+  }
+  .divider::after {
+    background: linear-gradient(270deg, transparent, rgba(184,147,58,0.4));
+  }
+  .divider-icon {
+    color: var(--gold);
+    font-size: 14px;
+    opacity: 0.8;
   }
 
-  .col {
-    border-right: 0.5pt solid #ccc;
-    padding-right: 7mm;
-  }
-  .col:last-child {
-    border-right: none;
-    padding-right: 0;
-  }
-
-  .section {
-    margin-bottom: 4.5mm;
-  }
-
-  .section-title {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: 8.5pt;
-    font-weight: 700;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    border-bottom: 0.75pt solid #111;
-    padding-bottom: 1.2mm;
-    margin-bottom: 1.8mm;
-  }
-
-  .section ul {
-    list-style: none;
-  }
-
-  .section ul li {
-    font-size: 7.8pt;
-    line-height: 1.55;
-    padding-left: 4mm;
-    position: relative;
-  }
-
-  .section ul li::before {
-    content: '·';
-    position: absolute;
-    left: 0;
-    color: #555;
-  }
-
-  .footer {
-    border-top: 1pt solid #111;
-    padding-top: 2.5mm;
+  /* Description */
+  .desc {
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(245,240,232,0.55);
+    letter-spacing: 0.08em;
     text-align: center;
-    margin-top: 2mm;
+    margin-bottom: 36px;
+    line-height: 1.7;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.4s forwards;
   }
 
-  .footer p {
-    font-size: 7pt;
-    letter-spacing: 2px;
+  /* Buttons */
+  .links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .btn {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 22px;
+    border-radius: 3px;
+    text-decoration: none;
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    font-style: italic;
-    color: #444;
+    transition: all 0.28s ease;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
   }
 
-  @media print {
-    body { -webkit-print-color-adjust: exact; }
+  .btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .btn:hover::before { opacity: 1; }
+  .btn:hover { transform: translateY(-1px); }
+  .btn:active { transform: translateY(0); }
+
+  /* Primary button — terracotta */
+  .btn-primary {
+    background: var(--terracotta);
+    color: var(--cream);
+    border: 1px solid rgba(196,98,45,0.5);
+    animation: fadeUp 0.7s ease 0.5s forwards;
+  }
+  .btn-primary::before {
+    background: linear-gradient(135deg, rgba(255,255,255,0.08), transparent);
+  }
+  .btn-primary:hover {
+    background: #d06b33;
+    box-shadow: 0 8px 24px rgba(196,98,45,0.35);
+  }
+
+  /* Secondary buttons */
+  .btn-outline {
+    background: rgba(245,240,232,0.04);
+    color: var(--cream);
+    border: 1px solid rgba(245,240,232,0.12);
+  }
+  .btn-outline::before {
+    background: rgba(245,240,232,0.04);
+  }
+  .btn-outline:hover {
+    border-color: rgba(184,147,58,0.4);
+    background: rgba(184,147,58,0.06);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  }
+
+  /* Gold accent button */
+  .btn-gold {
+    background: rgba(184,147,58,0.1);
+    color: var(--gold);
+    border: 1px solid rgba(184,147,58,0.3);
+  }
+  .btn-gold::before {
+    background: rgba(184,147,58,0.06);
+  }
+  .btn-gold:hover {
+    background: rgba(184,147,58,0.18);
+    border-color: rgba(184,147,58,0.6);
+    box-shadow: 0 4px 16px rgba(184,147,58,0.15);
+  }
+
+  /* Staggered animation delays */
+  .btn:nth-child(1) { animation: fadeUp 0.7s ease 0.5s forwards; }
+  .btn:nth-child(2) { animation: fadeUp 0.7s ease 0.6s forwards; }
+  .btn:nth-child(3) { animation: fadeUp 0.7s ease 0.65s forwards; }
+  .btn:nth-child(4) { animation: fadeUp 0.7s ease 0.7s forwards; }
+  .btn:nth-child(5) { animation: fadeUp 0.7s ease 0.75s forwards; }
+  .btn:nth-child(6) { animation: fadeUp 0.7s ease 0.8s forwards; }
+  .btn:nth-child(7) { animation: fadeUp 0.7s ease 0.85s forwards; }
+
+  .btn-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .btn-icon svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+  }
+
+  .btn-text { flex: 1; }
+
+  .btn-arrow {
+    font-size: 16px;
+    opacity: 0.4;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .btn:hover .btn-arrow {
+    opacity: 0.8;
+    transform: translateX(3px);
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 40px;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    color: rgba(245,240,232,0.2);
+    text-transform: uppercase;
+    text-align: center;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 1s forwards;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Section label */
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(184,147,58,0.5);
+    text-align: left;
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 4px;
+    padding-left: 2px;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.58s forwards;
   }
 </style>
 </head>
 <body>
-<div class="page">
 
-  <div class="header">
-    <h1>OILA</h1>
-    <div class="subtitle">Menu &mdash; 2.0</div>
+<div class="card">
+
+  <div class="ornament"></div>
+
+  <div class="logo-wrap">
+    <div class="logo-main">Oila</div>
+    <div class="logo-sub">Ресторан · Ташкент</div>
   </div>
 
-  <div class="grid">
+  <div class="divider">
+    <span class="divider-icon">✦</span>
+  </div>
 
-    <div class="col">
-      <div class="section">
-        <div class="section-title">Coffee</div>
-        <ul>
-          <li>Эспрессо</li>
-          <li>Доппио</li>
-          <li>Фильтр кофе &nbsp;<em>S / L</em></li>
-          <li>Капучино &nbsp;<em>S / L</em></li>
-          <li>Латте &nbsp;<em>S / L</em></li>
-          <li>Раф &nbsp;<em>S / L</em></li>
-          <li>Flat White</li>
-          <li>Mokko &nbsp;<em>S / L</em></li>
-        </ul>
-      </div>
+  <p class="desc">Узбекская кухня и уютная атмосфера<br>для всей семьи</p>
 
-      <div class="section">
-        <div class="section-title">Ice Coffee</div>
-        <ul>
-          <li>Ice Latte &nbsp;<em>S / L</em></li>
-          <li>Ice Mokko &nbsp;<em>S / L</em></li>
-          <li>Бамбл Сауэр</li>
-          <li>Вишневый Панч &nbsp;<em>S / L</em></li>
-          <li>Карамельный Фраппе &nbsp;<em>S / L</em></li>
-          <li>Аффогато с фисташковой халвой</li>
-        </ul>
-      </div>
+  <div class="links">
 
-      <div class="section">
-        <div class="section-title">Matcha</div>
-        <ul>
-          <li>Matcha Latte &nbsp;<em>S / L</em></li>
-          <li>Ice Matcha Latte &nbsp;<em>S / L</em></li>
-          <li>Ice Orange Matcha</li>
-          <li>Голубая матча с лавандой</li>
-          <li>Розовая матча с питахайей и персиком</li>
-          <li>Matcha Coffee с фундуком</li>
-        </ul>
-      </div>
+    <!-- Написать нам -->
+    <a href="https://t.me/oilacafe" class="btn btn-primary" target="_blank">
+      <span class="btn-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+        </svg>
+      </span>
+      <span class="btn-text">Написать в Telegram</span>
+      <span class="btn-arrow">→</span>
+    </a>
 
-      <div class="section">
-        <div class="section-title">Lemonade</div>
-        <ul>
-          <li>Алоэ–Виноград</li>
-          <li>Киви–Яблоко–Тархун</li>
-          <li>Цитрусовый</li>
-          <li>Яблоко–Смородина</li>
-          <li>Ice Tea Вишня–Сакура</li>
-          <li>Мохито</li>
-          <li>Вишневый компот</li>
-        </ul>
-      </div>
-    </div>
+    <a href="https://wa.me/998901234567" class="btn btn-outline" target="_blank">
+      <span class="btn-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
+        </svg>
+      </span>
+      <span class="btn-text">WhatsApp</span>
+      <span class="btn-arrow">→</span>
+    </a>
 
-    <div class="col">
-      <div class="section">
-        <div class="section-title">Vitamin Tea</div>
-        <ul>
-          <li>Цитрусовый чай</li>
-          <li>Смородиновый чай</li>
-          <li>Малиновый чай</li>
-          <li>Имбирно–медовый чай</li>
-        </ul>
-      </div>
+    <!-- Меню -->
+    <div class="section-label">Меню и бронирование</div>
 
-      <div class="section">
-        <div class="section-title">Tea</div>
-        <ul>
-          <li>Черный / Зеленый</li>
-          <li>Зеленый с чабрецом</li>
-          <li>Черный с бергамотом</li>
-          <li>Жасминовые жемчужины</li>
-          <li>Раскрывающийся чай (связанный)</li>
-          <li>Роза–Голубика</li>
-          <li>Жасмин–Клубника</li>
-          <li>Персиковый улун</li>
-          <li>Молочный улун</li>
-          <li>Ромашка–Мята</li>
-        </ul>
-      </div>
+    <a href="#" class="btn btn-gold" target="_blank">
+      <span class="btn-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8.1 13.34l2.83-2.83L3.91 3.5c-1.56 1.56-1.56 4.08 0 5.66l4.19 4.18zm6.78-1.81c1.53.71 3.68.21 5.27-1.38 1.91-1.91 2.28-4.65.81-6.12-1.46-1.46-4.2-1.1-6.12.81-1.59 1.59-2.09 3.74-1.38 5.27L3.7 19.87l1.41 1.41L12 14.41l6.88 6.88 1.41-1.41L13.41 13l1.47-1.47z"/>
+        </svg>
+      </span>
+      <span class="btn-text">Посмотреть меню</span>
+      <span class="btn-arrow">→</span>
+    </a>
 
-      <div class="section">
-        <div class="section-title">China Tea</div>
-        <ul>
-          <li>Дворцовый Шу Пуэр</li>
-          <li>Да Хун Пао</li>
-          <li>Те Гуань Инь</li>
-          <li>Золотые Иглы</li>
-          <li>Женьшень Улун</li>
-        </ul>
-      </div>
-    </div>
+    <a href="#" class="btn btn-outline" target="_blank">
+      <span class="btn-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+        </svg>
+      </span>
+      <span class="btn-text">Забронировать стол</span>
+      <span class="btn-arrow">→</span>
+    </a>
 
-    <div class="col">
-      <div class="section">
-        <div class="section-title">Soft Drinks</div>
-        <ul>
-          <li>Coca-Cola / Fanta / Sprite &nbsp;<em>0.25</em></li>
-          <li>Tassay &nbsp;<em>0.25</em></li>
-          <li>Rich &nbsp;<em>0.25</em></li>
-          <li>Чортог &nbsp;<em>0.25</em></li>
-        </ul>
-      </div>
+    <!-- Соцсети -->
+    <div class="section-label" style="animation-delay:0.72s">Мы в соцсетях</div>
 
-      <div class="section">
-        <div class="section-title">Fresh</div>
-        <ul>
-          <li>Апельсин</li>
-          <li>Грейпфрут</li>
-          <li>Яблоко</li>
-          <li>Морковь</li>
-        </ul>
-      </div>
+    <a href="https://instagram.com/oilacafe" class="btn btn-outline" target="_blank">
+      <span class="btn-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
+        </svg>
+      </span>
+      <span class="btn-text">Instagram</span>
+      <span class="btn-arrow">→</span>
+    </a>
 
-      <div class="section">
-        <div class="section-title">Smoothie</div>
-        <ul>
-          <li>Яблоко–Сельдерей</li>
-          <li>Ягодный</li>
-          <li>Свёкла–Апельсин</li>
-          <li>Киви–Яблоко–Банан</li>
-        </ul>
-      </div>
-
-      <div class="section">
-        <div class="section-title">For Kids</div>
-        <ul>
-          <li>Какао Kids</li>
-          <li>Персиково–клубничный смузи</li>
-          <li>Milk Shake Snickers</li>
-          <li>Milk Shake Raffaello</li>
-        </ul>
-      </div>
-    </div>
+    <!-- Адрес -->
+    <a href="https://maps.google.com/?q=Oila+cafe+Tashkent" class="btn btn-outline" target="_blank">
+      <span class="btn-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+        </svg>
+      </span>
+      <span class="btn-text">Как нас найти</span>
+      <span class="btn-arrow">→</span>
+    </a>
 
   </div>
 
-  <div class="footer">
-    <p>Спасибо, что выбрали Oila &nbsp;&mdash;&nbsp; Всегда рады вас видеть</p>
-  </div>
+  <div class="footer">Ташкент, Узбекистан</div>
 
 </div>
+
 </body>
 </html>
